@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import './App.css';
+import './App.css'
 import Main from './Main'
 
 class App extends Component {
@@ -20,11 +20,15 @@ class App extends Component {
           body: 'Also very fancy',
         },
       },
-      currentNote: {
-        id: null,
-        title: '',
-        body: '',
-      },
+        currentNote: this.blankNote(),
+      }
+    }
+
+  blankNote = () => {
+    return {
+      id: null,
+      title: '',
+      body: '',
     }
   }
 
@@ -32,22 +36,39 @@ class App extends Component {
     this.setState({ currentNote: note })
   }
 
-  saveNote(note) {
-    console.log("SAVED")
+  resetCurrentNote = () => {
+    this.setCurrentNote(this.blankNote())
+  }
+
+  saveNote = (note) => {
+    const notes = {...this.state.notes}
+    if(!note.id) {
+      note.id = Date.now()
+    }
+    notes[note.id] = note
+
+    this.setState({ notes: notes })
+    this.setCurrentNote(note)
   }
 
   render() {
+    const actions = {
+      setCurrentNote: this.setCurrentNote,
+      resetCurrentNote: this.resetCurrentNote,
+      saveNote: this.saveNote,
+    }
+
     return (
       <div className="App">
         <Main 
           notes={this.state.notes}
           currentNote={this.state.currentNote}
-          setCurrentNote={this.setCurrentNote}
           saveNote={this.saveNote}
+          {...actions}
         />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
