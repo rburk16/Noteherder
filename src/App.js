@@ -7,8 +7,6 @@ class App extends Component {
   constructor() {
     super()
 
-    this.setCurrentNote = this.setCurrentNote.bind(this)
-
     this.state = {
       notes: {
         'note-4': {
@@ -30,8 +28,12 @@ class App extends Component {
     }
   }
 
-  setCurrentNote(note) {
+  setCurrentNote = (note) => {
     this.setState({ currentNote: note })
+  }
+
+  saveNote(note) {
+    console.log("SAVED")
   }
 
   render() {
@@ -41,6 +43,7 @@ class App extends Component {
           notes={this.state.notes}
           currentNote={this.state.currentNote}
           setCurrentNote={this.setCurrentNote}
+          saveNote={this.saveNote}
         />
       </div>
     );
