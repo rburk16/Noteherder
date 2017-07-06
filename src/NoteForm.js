@@ -25,6 +25,9 @@ class NoteForm extends Component {
               value={this.props.currentNote.body}
             ></textarea>
           </form>
+          <div className="button">
+            <button type="submit">Save Note</button>
+          </div>
         </div>
         )
     }
