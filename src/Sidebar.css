@@ -1,4 +1,4 @@
-Sidebar {
+.Sidebar {
   width: 60px;
   background-color: #f3f3f3;
   padding: 0.5rem 0; 
@@ -37,13 +37,13 @@ Sidebar {
   opacity: 0;
 }
 
-.Sidebar .SignOut {
+.SignOut {
   position: absolute;
   bottom: 1rem;
 }
-.Sidebar .SignOut button {
+.SignOut button {
   outline: none;
 }
-.Sidebar .SignOut button i.fa {
+.SignOut button i.fa {
   font-size: 2rem;
 }

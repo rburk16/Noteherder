@@ -10,7 +10,13 @@ const NoteList = (props) => {
         <div className="NoteList">
           <h3>Notes</h3>
           <ul id="notes">
-            {noteIds.map((noteId) => <Note note={props.notes[noteId]} key={noteId}/>)}
+            {noteIds.map((noteId) => (
+              <Note 
+                key={noteId}
+                note={props.notes[noteId]}
+                setCurrentNote={props.setCurrentNote}
+                />
+            ))}
           </ul>
         </div>
     )
