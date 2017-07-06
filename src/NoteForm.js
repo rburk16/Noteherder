@@ -15,7 +15,7 @@ class NoteForm extends Component {
         return (
         <div className="NoteForm">
           <div className="form-actions">
-            <button type="button">
+            <button type="button" onClick={this.props.deleteNote}>
               <i className="fa fa-trash-o"></i>
             </button>
           </div>
@@ -35,7 +35,7 @@ class NoteForm extends Component {
               onChange={this.handleChanges}
             ></textarea>
           </form>
-          <div className="button" onClick={this.props.saveNote}>
+          <div className="button" /*onClick={this.props.saveNote}*/>
             <button type="submit">Save Note</button>
           </div>
         </div>
