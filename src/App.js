@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import base from './base'
-
 
 import './App.css'
+import base, { auth } from './base'
 import Main from './Main'
+import SignIn from './SignIn'
 
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      notes: {
-      },
-        currentNote: this.blankNote(),
-      }
+      notes: {},
+      currentNote: this.blankNote(),
+      uid: null,
+    }
     }
   componentDidMount = () => {
     base.syncState(
@@ -60,12 +60,27 @@ class App extends Component {
     this.resetCurrentNote()
   }
 
+  signedIn = () => {
+    return this.state.uid
+  }
+
+  handleAuth = (result) => {
+    this.setState({ uid: result.user.uid })
+  }
+
+  signOut = () => {
+    auth
+      .signOut()
+      .then(() => this.setState({ uid: null }))
+  }
+
   render() {
     const actions = {
       setCurrentNote: this.setCurrentNote,
       resetCurrentNote: this.resetCurrentNote,
       saveNote: this.saveNote,
       deleteNote: this.deleteNote,
+      signOut: this.signOut,
     }
 
     const noteData = {
@@ -75,10 +90,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Main
-          {...noteData}
-          {...actions}
-        />
+        {
+          this.signedIn() 
+            ? <Main {...noteData} {...actions} /> 
+            : <SignIn handleAuth={this.handleAuth} />}
       </div>
     )
   }
