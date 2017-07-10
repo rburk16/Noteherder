@@ -35,8 +35,8 @@ class NoteForm extends Component {
               onChange={this.handleChanges}
             ></textarea>
           </form>
-          <div className="button" /*onClick={this.props.saveNote}*/>
-            <button type="submit">Save Note</button>
+          <div className="button" /*onClick={this.props.saveNote}>
+            <button type="submit"></button*/>
           </div>
         </div>
         )
