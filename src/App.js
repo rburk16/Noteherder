@@ -12,8 +12,8 @@ class App extends Component {
 
     this.state = {
       notes:  {},
-      currentNoteId: null,
       uid: null,
+      firebaseNotesSynced: false,
     }
   }
 
@@ -44,6 +44,7 @@ class App extends Component {
       {
         context: this,  // what object the state is on
         state: 'notes', // which property to sync
+        then: () => this.setState({ firebaseNotesSynced: true })
       }
     )
   }
@@ -69,7 +70,7 @@ class App extends Component {
     notes[note.id] = null
 
     this.setState({ notes })
-    this.props.history.push('/notes')
+    this.props.history.replace('/notes')
   }
 
   signedIn = () => {
@@ -126,6 +127,7 @@ class App extends Component {
                 ? <Main
                     {...actions}
                     notes={this.state.notes}
+                    firebaseNotesSynced={this.state.firebaseNotesSynced}
                   />
                 : <Redirect to="/sign-in" />
             )}
