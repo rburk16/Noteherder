@@ -9,14 +9,13 @@ const SignIn = () => {
   const authenticate = (provider) => {
     auth.signInWithPopup(provider)
   }
-
 */
 
 const SignIn = () => {
   const authenticate = () => {
     auth.signInWithPopup(googleProvider)
   }
-  
+
 const ghAuthenticate = () => {
   auth.signInWithPopup(githubProvider)
 }
