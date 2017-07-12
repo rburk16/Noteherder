@@ -13,7 +13,7 @@ class NoteForm extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const nextId = nextProps.currentNoteId
+    const nextId = nextProps.match.params.id
     const note = nextProps.notes[nextId] || this.blankNote()
 
     let editorValue = this.state.editorValue
@@ -75,8 +75,7 @@ class NoteForm extends Component {
               onChange={this.handleEditorChanges}
             ></RichTextEditor>
           </form>
-          <div className="button" /*onClick={this.props.saveNote}>
-            <button type="submit"></button*/>
+          <div className="button">
           </div>
         </div>
         )

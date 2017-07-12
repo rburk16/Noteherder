@@ -11,7 +11,7 @@ class App extends Component {
     super()
 
     this.state = {
-      notes: {},
+      notes:  {},
       currentNoteId: null,
       uid: null,
     }
@@ -27,8 +27,6 @@ class App extends Component {
         } else {
           // signed out
           this.handleUnauth()
-          
-
         }
       }
     )
@@ -37,7 +35,7 @@ class App extends Component {
   getUserFromLocalStorage = () => {
     const uid = localStorage.getItem('uid')
     if (!uid) return
-    this.setState({ uid: uid })
+    this.setState({ uid })
   }
 
   syncNotes = () => {
@@ -59,17 +57,22 @@ class App extends Component {
   }
 
   saveNote = (note) => {
-    const notes = {...this.state.notes}
-    if(!note.id) {
+    let shouldRedirect = false
+    if (!note.id) {
       note.id = Date.now()
+      shouldRedirect = true
     }
+
+    const notes = {...this.state.notes}
     notes[note.id] = note
 
-    this.setState({ notes: notes })
-    this.setCurrentNote(note)
+    this.setState({ notes })
+    if (shouldRedirect) {
+      this.props.history.push(`/notes/${note.id}`)
+    }
   }
-  
-  deleteNote = () => {
+
+  removeCurrentNote = () => {
     const notes = {...this.state.notes}
     notes[this.state.currentNoteId] = null
 
@@ -96,24 +99,22 @@ class App extends Component {
       base.removeBinding(this.bindingRef)
     }
 
-    this.setState({ 
+    this.setState({
       uid: null,
       notes: {},
     })
+
     this.resetCurrentNote()
   }
 
   signOut = () => {
-    auth
-      .signOut()
+    auth.signOut()
   }
 
   render() {
     const actions = {
-      setCurrentNote: this.setCurrentNote,
-      resetCurrentNote: this.resetCurrentNote,
       saveNote: this.saveNote,
-      deleteNote: this.deleteNote,
+      removeCurrentNote: this.removeCurrentNote,
       signOut: this.signOut,
     }
 
@@ -144,13 +145,11 @@ class App extends Component {
                 : <Redirect to="/sign-in" />
             )}
           />
-          <Route
-            render={() => (
-              this.signedIn()
-                ? <Redirect to="/notes" />
-                : <Redirect to="/sign-in" />
-            )}
-          />
+          <Route render={() => (
+            this.signedIn()
+              ? <Redirect to="/notes" />
+              : <Redirect to="/sign-in" />
+          )} />
         </Switch>
       </div>
     )
