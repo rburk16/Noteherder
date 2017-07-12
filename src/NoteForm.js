@@ -13,8 +13,13 @@ class NoteForm extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const nextId = nextProps.match.params.id
-    const note = nextProps.notes[nextId] || this.blankNote()
+    const idFromUrl = nextProps.match.params.id
+    const note = nextProps.notes[idFromUrl] || this.blankNote()
+
+    const noteNotFound = idFromUrl && !note.id
+    if (noteNotFound) {
+      this.props.history.push('/notes')
+    }
 
     let editorValue = this.state.editorValue
     if (editorValue.toString('html') !== note.body) {
@@ -55,7 +60,7 @@ class NoteForm extends Component {
         return (
         <div className="NoteForm">
           <div className="form-actions">
-            <button type="button" onClick={this.props.deleteNote}>
+            <button type="button" onClick={() => this.props.removeNote(this.state.note)}>
               <i className="fa fa-trash-o"></i>
             </button>
           </div>

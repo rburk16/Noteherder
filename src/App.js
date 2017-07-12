@@ -48,14 +48,6 @@ class App extends Component {
     )
   }
 
-  setCurrentNote = (note) => {
-    this.setState({ currentNoteId: note.id })
-  }
-
-  resetCurrentNote = () => {
-    this.setCurrentNote({ id: null })
-  }
-
   saveNote = (note) => {
     let shouldRedirect = false
     if (!note.id) {
@@ -72,12 +64,12 @@ class App extends Component {
     }
   }
 
-  removeCurrentNote = () => {
+  removeNote = (note) => {
     const notes = {...this.state.notes}
-    notes[this.state.currentNoteId] = null
+    notes[note.id] = null
 
     this.setState({ notes })
-    this.resetCurrentNote()
+    this.props.history.push('/notes')
   }
 
   signedIn = () => {
@@ -103,8 +95,6 @@ class App extends Component {
       uid: null,
       notes: {},
     })
-
-    this.resetCurrentNote()
   }
 
   signOut = () => {
@@ -114,13 +104,8 @@ class App extends Component {
   render() {
     const actions = {
       saveNote: this.saveNote,
-      removeCurrentNote: this.removeCurrentNote,
+      removeNote: this.removeNote,
       signOut: this.signOut,
-    }
-
-    const noteData = {
-      notes: this.state.notes,
-      currentNoteId: this.state.currentNoteId,
     }
 
     return (
@@ -140,7 +125,7 @@ class App extends Component {
               this.signedIn()
                 ? <Main
                     {...actions}
-                    {...noteData}
+                    notes={this.state.notes}
                   />
                 : <Redirect to="/sign-in" />
             )}
