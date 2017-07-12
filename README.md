@@ -3,6 +3,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
+
+## Deployment
+
+Ryn 'yarn deploy' (or 'npm run delpoy') to deploy the app to Firebase.
+
+**Note**: This requires the Firebase command-line tools to be installed. Run 'npm install -g firebase tools' to install them.
+
+
 ## Table of Contents
 
 - [Updating to New Releases](#updating-to-new-releases)
