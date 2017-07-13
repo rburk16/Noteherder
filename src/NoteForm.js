@@ -58,6 +58,7 @@ class NoteForm extends Component {
   handleEditorChanges = (editorValue) => {
     const note = {...this.state.note}
     note.body = editorValue.toString('html')
+    note.time = this.getTime()
     this.setState(
       { note, editorValue },
       () => this.props.saveNote(note)
@@ -84,6 +85,7 @@ class NoteForm extends Component {
             </p>
             <RichTextEditor 
               name="body"
+              placeholder="Note Contents"
               value={this.state.editorValue}
               onChange={this.handleEditorChanges}
             ></RichTextEditor>
