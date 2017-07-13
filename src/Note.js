@@ -6,6 +6,9 @@ const Note = ({ note }) => {
         <NavLink to={`/notes/${note.id}`}>
               <li>
                 <div className="note">
+                  <div className="note-time">
+                    {note.time}
+                  </div>
                   <div className="note-title">
                       {note.title}
                   </div>
